@@ -1,5 +1,7 @@
 # Changelog
 
-## 0.1.0
+## 0.2.0
 
-Initial standalone Mischief package with configurable defaults, installation examples and companion metadata.
+Shorter Mischief identity: MMM-MCHF-Wit. Shared earthy card surfaces and optional native entrance effects. Configurable phrase-only fades with cancellation and reduced-motion support.
+
+Earlier releases used the previous longer Mischief module name.

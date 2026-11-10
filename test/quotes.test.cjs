@@ -6,7 +6,14 @@ test('local phrases vary without recent repeats, support custom-only mode and bo
 test('phrase changes preserve their displayed element and never call the mirror fade/rebuild path',()=>{
  const fs=require('node:fs'),vm=require('node:vm');let module,callback;class Element{constructor(){this.children=[];this.style={};}append(e){this.children.push(e);}setAttribute(){}}
  const document={hidden:false,addEventListener(){},createElement(){return new Element();}},context={Module:{register(n,d){module=d;}},MischiefPhrases:book,document,clearTimeout(){},setTimeout(f){callback=f;return 1;}};
- vm.runInNewContext(fs.readFileSync(require.resolve('../MMM-MischiefQuotes.js'),'utf8'),context);
+ vm.runInNewContext(fs.readFileSync(require.resolve('../MMM-MCHF-Wit.js'),'utf8'),context);
  const instance={...module,config:{...module.defaults},updateDom(){throw Error('Unexpected whole-module refresh');}};instance.start();const root=instance.getDom(),line=instance.line,first=line.textContent;callback();assert.equal(instance.getDom(),root);assert.equal(instance.line,line);assert.notEqual(line.textContent,first);
  instance.suspend();assert.equal(instance.paused,true);
+});
+
+
+test('phrase fades animate only the text, respect reduced motion and cancel on suspension',async()=>{
+ const fs=require('node:fs'),vm=require('node:vm');let definition,reduce=false;vm.runInNewContext(fs.readFileSync(require.resolve('../MMM-MCHF-Wit.js'),'utf8'),{Module:{register(n,d){definition=d;}},MischiefPhrases:book,document:{hidden:false,addEventListener(){}},window:{matchMedia(){return {matches:reduce};}},setTimeout(){return 1;},clearTimeout(){}});
+ const calls=[],line={textContent:'Before',animate(frames,opts){calls.push({frames,opts});return {finished:Promise.resolve(),cancel(){}};}},instance={...definition,config:{...definition.defaults},line};instance.start();await instance.changePhrase();assert.equal(calls.length,2);assert.equal(calls[0].frames[1].opacity,0);assert.equal(calls[1].frames[1].opacity,1);assert.equal(calls[0].opts.duration,450);assert.equal(line.textContent,instance.phrase);
+ reduce=true;await instance.changePhrase();assert.equal(calls.length,2);instance.suspend();assert.equal(instance.transition,null);assert.equal(instance.paused,true);
 });

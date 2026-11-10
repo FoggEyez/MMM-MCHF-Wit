@@ -1,10 +1,10 @@
-# MMM-MischiefQuotes
+# MMM-MCHF-Wit
 
 Original offline humor with custom phrases and no API key.
 
 Part of [Mirror Mischief](https://github.com/FoggEyez/Mirror-Mischief). Install and configure manually, or use the optional companion.
 
-![MMM-MischiefQuotes rendered example](docs/screenshot.png)
+![MMM-MCHF-Wit rendered example](docs/screenshot.png)
 
 Screenshot uses the actual module renderer in an isolated preview. Network/health/economy readings are labelled synthetic demonstration data, not live readings.
 
@@ -14,7 +14,7 @@ Requires a working MagicMirror² installation, Node.js 22 or newer, and a curren
 
 ```sh
 cd ~/MagicMirror/modules
-git clone https://github.com/FoggEyez/MMM-MischiefQuotes.git
+git clone https://github.com/FoggEyez/MMM-MCHF-Wit.git
 ```
 
 No npm runtime dependencies or install scripts. No extra services are required.
@@ -23,15 +23,19 @@ Add this to the modules array in config/config.js, then restart MagicMirror²:
 
 ```js
 {
-  module: "MMM-MischiefQuotes",
-  position: "middle_center",
-  config: {}
+  "module": "MMM-MCHF-Wit",
+  "position": "middle_center",
+  "animateIn": "flipInX",
+  "config": {
+    "transitionStyle": "fade",
+    "transitionMs": 900
+  }
 }
 ```
 
 ## Customize
 
-Choose `humorStyle`: mixed, dry, absurd or nerdy. Use `customPhrases` for your own messages and `includeBuiltIn: false` for custom-only mode. An empty custom-only collection safely falls back to the bundled original phrases. `updateSeconds` is clamped to 30–3600; `maxCharacters` to 60–180. Changes preserve the text element without fades.
+Choose `humorStyle`: mixed, dry, absurd or nerdy. Use `customPhrases` for your own messages and `includeBuiltIn: false` for custom-only mode. An empty custom-only collection safely falls back to the bundled original phrases. `updateSeconds` is clamped to 30–3600; `maxCharacters` to 60–180. The default transitionStyle is fade: only the phrase fades out and in over transitionMs (200–2400 milliseconds, default 900). Use none for instant changes. Reduced-motion preferences skip the fade. The module element stays in place.
 
 All supported settings are visible as literal defaults for generated settings editors.
 
@@ -46,6 +50,8 @@ All supported settings are visible as literal defaults for generated settings ed
 | includeBuiltIn | `true` | boolean |
 | maxCharacters | `120` | number |
 | customPhrases | `[]` | array |
+| transitionStyle | `"fade"` | string |
+| transitionMs | `900` | number |
 
 ## Mirror Mischief companion
 
