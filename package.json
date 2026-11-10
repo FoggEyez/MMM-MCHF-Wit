@@ -1,0 +1,29 @@
+{
+  "name": "mmm-mischiefquotes",
+  "version": "0.1.0",
+  "description": "Original offline humor with custom phrases and no API key.",
+  "license": "MIT",
+  "author": "FoggEyez",
+  "keywords": [
+    "magicmirror",
+    "magicmirror-module",
+    "mischief",
+    "quotes",
+    "humor",
+    "compliments"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FoggEyez/MMM-MischiefQuotes.git"
+  },
+  "bugs": {
+    "url": "https://github.com/FoggEyez/MMM-MischiefQuotes/issues"
+  },
+  "homepage": "https://github.com/FoggEyez/MMM-MischiefQuotes#readme",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.cjs"
+  }
+}

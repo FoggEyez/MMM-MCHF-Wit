@@ -1,0 +1,24 @@
+/* Original one-liners and local phrase combinations; no API, tracking or borrowed quotations. */
+(function(root){
+ const banks={
+  dry:["Looking prepared is half the battle. Nice work on that half.","A strong start. Let's keep expectations manageable.","You look like you have a plan. Very convincing.","Today's forecast: a reasonable chance of making it up as we go.","You've got this. The instructions are probably somewhere.","Your reflection has agreed to keep this between you two.","Confidence looks good on you. So does checking twice.","Another day, another opportunity to rename a problem.","Excellent posture for someone carrying seventeen unfinished thoughts.","You're doing fine. The mirror has very little management experience.","Your potential is impressive. Your snooze button is persistent.","You appear to be the adult in charge. Interesting development."],
+  absurd:["A committee of raccoons has approved your outfit.","Your imaginary assistant has requested an imaginary raise.","Somewhere, a pigeon thinks you're doing great.","Your brain has opened another tab. Nobody knows which one.","The invisible parade in your honor is running slightly late.","Your socks have formed a small but promising alliance.","A tiny wizard has certified this as a perfectly acceptable Tuesday. Even if it isn't.","Your reflection would like to speak to whoever scheduled mornings.","Today's emergency meeting has been replaced with a dramatic sigh.","You have the quiet authority of a person holding a clipboard.","The universe has misplaced the paperwork. Proceed confidently.","Your eyebrows look ready to negotiate."],
+  nerdy:["Personal operating system online. Coffee driver recommended.","Your face passed the visual inspection. No reboot required.","Today's mood is still buffering. Please enjoy this placeholder confidence.","You are not procrastinating. You are allowing the task to compile.","Confidence cached successfully. Reality check scheduled for later.","All systems nominal. The human is a work in progress.","Your reflection is running the latest stable version of you.","Daily startup complete. Seventeen background thoughts detected.","Your motivation has entered power-saving mode.","No critical errors found. A few creative workarounds, though.","Good news: you are compatible with another day.","Personality loaded. Release notes remain classified."]
+ };
+ function pool(style,contextAware,date,max){
+  const selected=Object.hasOwn(banks,style)?[style]:Object.keys(banks),out=selected.flatMap(k=>banks[k]);
+  const tasks=['answering one email','finding the missing tool','remembering why you walked in here','finishing the simple thing first','locating your motivation','making a very confident list'],verdicts=['has been escalated to future you.','is technically a leadership opportunity.','may require a snack.','has excellent potential for a dramatic sigh.'];
+  for(const a of tasks)for(const b of verdicts)out.push('Today, '+a+' '+b);
+  if(contextAware){const h=date.getHours(),d=date.getDay();if(h<11)out.push('Good morning. Your ambition and your pillow have reached no agreement.','Morning mode enabled. Please allow time for the human to connect.');if(h>=20)out.push('You have done enough today to justify sitting down dramatically.','Evening update: the couch continues to meet all performance targets.');if(d===1)out.push('Monday has arrived with absolutely no regard for your preferences.');if(d===0||d===6)out.push('Weekend mode: every minor accomplishment qualifies as an achievement.');}
+  return [...new Set(out)].filter(t=>t.length<=max);
+ }
+ function create(random=Math.random){let recent=[];return {next(config={},date=new Date(Date.now())){
+  const max=Number.isFinite(Number(config.maxCharacters))?Math.max(60,Math.min(180,Number(config.maxCharacters))):120;
+  const custom=Array.isArray(config.customPhrases)?config.customPhrases.filter(s=>typeof s==='string').map(s=>s.trim()).filter(s=>s&&s.length<=max).slice(0,200):[];
+  let choices=config.includeBuiltIn===false?custom:[...pool(config.humorStyle,config.contextAware!==false,date,max),...custom];
+  choices=[...new Set(choices)];if(!choices.length)choices=banks.dry.filter(t=>t.length<=max);if(!choices.length)choices=['You look like you have a plan. Very convincing.'];
+  let available=choices.filter(s=>!recent.includes(s));if(!available.length){recent=recent.slice(-1);available=choices.filter(s=>!recent.includes(s));}if(!available.length)available=choices;
+  const n=random(),index=Math.min(available.length-1,Math.max(0,Math.floor((Number.isFinite(n)?n:0)*available.length))),phrase=available[index];recent.push(phrase);recent=recent.slice(-24);return phrase;
+ }};}
+ const api={create,pool};root.MischiefPhrases=api;if(typeof module!=='undefined')module.exports=api;
+})(typeof window!=='undefined'?window:globalThis);

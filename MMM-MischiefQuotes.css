@@ -1,0 +1,2 @@
+.mischief-quote{box-sizing:border-box;max-width:calc(100vw - 850px);min-width:260px;margin:auto;padding:16px 8px;text-align:center;color:#d3dfd6;text-shadow:0 2px 12px #000;font:25px/1.4 'Segoe UI',Arial,sans-serif}.mischief-quote-label{font-size:9px;line-height:1.4;letter-spacing:3px;color:#b9ab7e;margin-bottom:10px}.mischief-quote-large{font-size:30px}.mischief-quote-line{min-height:2.8em;text-wrap:balance;overflow-wrap:break-word}
+@media(max-width:1200px){.mischief-quote{max-width:calc(100vw - 730px);font-size:20px}.mischief-quote-large{font-size:23px}}

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "module": "MMM-MischiefQuotes",
+  "title": "Mischief Quotes",
+  "recommendedPosition": "middle_center",
+  "singleInstance": true,
+  "requires": [],
+  "notes": "All supported settings are literal defaults in the module entry. No companion is required. This manifest documents the contract; current MMM-Config discovers defaults from JavaScript.",
+  "supportedSettings": [
+    "humorStyle",
+    "updateSeconds",
+    "panelWidth",
+    "textSize",
+    "showLabel",
+    "contextAware",
+    "includeBuiltIn",
+    "maxCharacters",
+    "customPhrases"
+  ]
+}
